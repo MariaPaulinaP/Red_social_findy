@@ -49,7 +49,8 @@ const Form = () => {
         showConfirmButton: false,
         timer: 1500
       })
-      navigate("gestion/proyecto");
+      navigate('/profile');
+      // navigate('profile');
     } else {
       Swal.fire({
         icon: 'error',

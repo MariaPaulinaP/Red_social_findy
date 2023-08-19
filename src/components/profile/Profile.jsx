@@ -1,15 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './profile.scss'
 import puntos from '../../assests/Group 13.png'
 import circular from '../../assests/Group 12.png'
 import atras from '../../assests/Vector.png'
 import principal from '../../assests/PRINCIPAL.png'
-import foto1 from '../../assests/foto1.png'
-import foto2 from '../../assests/foto2.png'
-import foto3 from '../../assests/foto3.png'
-import foto4 from '../../assests/foto4.png'
+import { traerPosts } from '../../service/peticiones/peticiones'
+import { useNavigate, useParams } from 'react-router-dom'
+
 
 const Profile = () => {
+
+const [imagenesPost, setImagenesPost] = useState([])
+const navigate = useNavigate();
+
+const traerData = async() =>{
+  try {
+    const dataPost = await traerPosts()
+    console.log(dataPost)
+    setImagenesPost(dataPost)
+    return dataPost
+  } catch (error) {
+    return []
+  }
+}
+
+useEffect(() => {
+  traerData()
+}, [])
+
+
+const cargarDetalles = (user) => {  
+  navigate(`/details/${user.id}`, {state: user})
+}
+
+
+
   return (
     <>
       <figure className='container__figure'>
@@ -41,21 +66,15 @@ const Profile = () => {
             <span>Tag</span>
           </div>
           <div className='fotos'>
-            <img src={foto1} alt="foto1" className='imagenes'/>
-            <img src={foto2} alt="foto2" className='imagenes'/>
-            <img src={foto3} alt="foto3" className='imagenes'/>
-            <img src={foto4} alt="foto4" className='imagenes'/>
+            {
+                imagenesPost.map((user, index) => (
+                  <img key={index} src={user.url} className='imagenes' onClick={() => {cargarDetalles(user)}}/> 
+                ))
+            }
           </div>
         </section>
 
        
-          <div className='form__publicacion'>
-            <h2>Descripcion</h2>
-            <textarea name="" id="" cols="20" rows="8"></textarea>
-           <hr />
-            <h2>Imagen</h2>
-            <img src="" alt="" placeholder='Poner aqui la ruta de la imagen por favor'/>
-          </div>
     </>
   )
 }

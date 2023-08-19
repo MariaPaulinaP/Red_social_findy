@@ -32,7 +32,6 @@
         &__foto {
             width: 100%;
             position: relative;
-            height: 400px;
             bottom: 4.5rem;
 
             &__img {
@@ -54,8 +53,8 @@
         border-radius: 20px;
         width: 70%;
         background-color: rgb(255, 255, 255);
-        margin-top: -10%;
-        z-index: 1;
+        margin-top: -20%;
+        z-index: 0;
         padding: 5px 4px;
 
         &__figPerfil {
@@ -92,7 +91,7 @@
         &__parrafo {
             line-height: normal;
             text-align: justify;
-            font-size: 12px;
+            font-size: 18px;
             font-family: $font_primary;
         }
     }

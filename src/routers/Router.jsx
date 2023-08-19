@@ -4,6 +4,9 @@ import { initialUser, userReducer } from "../service/admiReducer/admiReducer";
 import { createContext } from "react";
 import Form from '../components/form/Form'
 import { getSession } from "../service/sessionService/sessionService";
+import Profile from "../components/profile/Profile";
+import FormNewPost from "../components/formNewPost/formNewPost";
+import Details from "../components/details/details";
 
 export const AppContext = createContext({});
 
@@ -35,6 +38,10 @@ const Router = () => {
         <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<Form/>}/>
+                    <Route path='/profile' element={<Profile/>}/>
+                    <Route path='/details/:id' element={<Details/>}/>
+                    {/* <Route path='/formNewPost' element={<FormNewPost/>}/> */}
+                    {/* <Route path='/profile' element={<Profile/>}/> */}
                 </Routes>
         </BrowserRouter>
    </AppContext.Provider>

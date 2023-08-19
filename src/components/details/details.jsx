@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./details.scss";
 
 import barraCel from "../details//assestsDetails/barraBlanca.png";
@@ -15,9 +15,29 @@ import casa from "../../assests/casa.png";
 import lupa from "../../assests/lupa.png";
 import campana from "../../assests/campana.png";
 import mas from "../../assests/mas.png";
+import FormNewPost from "../formNewPost/formNewPost";
+import { useLocation, useParams } from "react-router-dom";
 
 
 function Details() {
+  const [modal, setModal] = useState(false);
+  const [info, setInfo] = useState({});
+  const location = useLocation();
+ 
+  useEffect(()=> {
+    if(location.state.id) {
+        setInfo(location.state)
+    } 
+}, [])
+
+  const openModal = () => {
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
+  };
+
   return (
     <section className="details">
 
@@ -29,7 +49,7 @@ function Details() {
         <img className="details__iconos__puntos" src={puntos} alt="Puntos" />
       </figure>
       <figure className="details__foto">
-        <img className="details__foto__img" src={fotoPersona} alt="Foto" />
+        <img className="details__foto__img" src={info.url} alt="Foto" />
       </figure>
 
       <div className="datos">
@@ -56,8 +76,7 @@ function Details() {
       </div>
 
       <div className="comentario">
-        <p className="comentario__parrafo">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos, inventore optio! Ullam sit dolorum et sed hic expedita impedit quaerat quidem quae deleniti nulla accusantium fuga iusto repellat, maiores soluta.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi ex excepturi, assumenda qui in enim temporibus reprehenderit minima natus molestiae atque provident et molestias nihil laborum at, quisquam deleniti eligendi.</p>
+        <p className="comentario__parrafo">{info.description}</p>
       </div>
 
       <div className="input">
@@ -77,20 +96,21 @@ function Details() {
         <article className="footer__iconos">
         <img className="footer__casa"  src={casa} alt="casa"  />
         <img className="footer__lupa"  src={lupa} alt="lupa"  />
-        <img className="footer__mas"  src={mas} alt="lupa"  />
+        <img className="footer__mas"  src={mas} alt="lupa"  onClick={openModal}/>
         <img className="footer__campana"  src={campana} alt="campana"  />
         </article>
 
-     
-        <img className="footer__circulo"  src={circulo} alt="" />
-
-          <img className="footer__fig__img" src={fotoPersona} alt="" />
-
+    
+        <img className="footer__circulo"  src={circulo} alt="" onClick={openModal}/>
         
+        <img className="footer__fig__img" src={fotoPersona} alt="" />
+
         <img  className="footer__img" src={footer} alt=""/>
+        <FormNewPost isOpen={modal} onRequestCloset={closeModal} />
         
       </div>
 
+     
     </section>
   );
 }
