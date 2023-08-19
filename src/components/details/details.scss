@@ -1,0 +1,188 @@
+@import '../../stylesGlobales/stylesGlobales.scss';
+
+@media(max-width:500px) {
+    * {
+        margin: 0;
+    }
+
+    .details {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(232, 232, 232);
+
+        &__barra {
+            z-index: 1;
+            height: 3rem;
+
+            &__img {
+                margin-left: 2rem;
+            }
+        }
+
+        &__iconos {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0rem 3rem;
+            z-index: 1;
+        }
+
+        &__foto {
+            width: 100%;
+            position: relative;
+            height: 400px;
+            bottom: 4.5rem;
+
+            &__img {
+                width: 100%;
+                z-index: 0;
+                position: relative;
+                border-radius: 5%;
+            }
+        }
+
+    }
+
+    .datos {
+        display: flex;
+        gap: 0.8rem;
+        justify-content: space-around;
+        align-items: center;
+        align-self: center;
+        border-radius: 20px;
+        width: 70%;
+        background-color: rgb(255, 255, 255);
+        margin-top: -10%;
+        z-index: 1;
+        padding: 5px 4px;
+
+        &__figPerfil {
+            width: 3rem;
+
+            &__imgPerfil {
+                width: 50px;
+                border-radius: 50%;
+                border: 2px solid #FF74B7;
+            }
+        }
+
+        &__span {
+            font-weight: bolder;
+            font-family: $font-secundary; 
+            margin-left: -4%;
+        }
+
+        &__article {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+
+            &__img {
+                width: 22px;
+            }
+        }
+    }
+
+    .comentario {
+        margin: 1rem 1.5rem;
+
+        &__parrafo {
+            line-height: normal;
+            text-align: justify;
+            font-size: 12px;
+            font-family: $font_primary;
+        }
+    }
+
+    .input {
+        display: flex;
+        width: 90%;
+        justify-content: center;
+        align-items: center;
+        align-self: center;
+        margin-top: 1rem;
+
+        &__fig {
+            width: 3rem;
+            margin-right: 0.5rem;
+
+            &__img {
+                width: 40px;
+                border-radius: 50%;
+                border: none
+            }
+        }
+
+        &__escribir {
+            width: 90%;
+            height: 2.5rem;
+            border-radius: 20px;
+            border: none;
+            padding-left: 1rem;
+        }
+
+        &__icono {
+            position: relative;
+            right: 2rem;
+        }
+    }
+
+    .footer {
+        margin-top: -1rem;
+
+        &__iconos {
+            display: flex;
+            margin-left: 2rem;
+            gap: 17%;
+            z-index: 2;
+        }
+
+        &__casa {
+            position: relative;
+            top: 7rem;
+        }
+
+        &__lupa {
+            position: relative;
+            top: 7rem;
+        }
+
+        &__mas {
+            position: relative;
+            top: 5.6rem;
+            z-index: 2;
+            // margin-left: 0.4rem;
+        }
+
+        &__campana {
+            position: relative;
+            top: 7rem;
+        }
+
+        &__circulo {
+            position: relative;
+            top: 3rem;
+            margin-left: 43.5%;
+            height: auto;
+        }
+
+        &__fig__img {
+            width: 40px;
+            border-radius: 50%;
+            border: none;
+            position: relative;
+            left: 25%;
+            top: 3.5rem;
+        }
+
+        &__img {
+            width: 100%;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+    }
+
+}
