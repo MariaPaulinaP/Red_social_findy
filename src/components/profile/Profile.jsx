@@ -13,7 +13,7 @@ const Profile = () => {
   return (
     <>
       <figure className='container__figure'>
-        <img src={atras} alt="principal" className='atras'/>
+        <img src={atras} alt="principal" className='atras' />
         <img src={principal} alt="principal" className='principal'/>
         <img src={puntos} alt="puntos" className='puntos'/>
       </figure>
@@ -26,12 +26,12 @@ const Profile = () => {
           <span className='info__personal-span'>J. Hello guys <br /> Follow me and like my post</span>
         </div>
         <span className='info__likes'>108.3 M <br /> Likes</span>
-      </section>
-
         <div className='info__botones'> 
           <button className='info__btn'>Follow</button>
           <button className='info__btn'>Messages</button>
         </div>
+      </section>
+
 
         <section className="container__fotos">
           <div className='categorias'>
@@ -47,6 +47,15 @@ const Profile = () => {
             <img src={foto4} alt="foto4" className='imagenes'/>
           </div>
         </section>
+
+       
+          <div className='form__publicacion'>
+            <h2>Descripcion</h2>
+            <textarea name="" id="" cols="20" rows="8"></textarea>
+           <hr />
+            <h2>Imagen</h2>
+            <img src="" alt="" placeholder='Poner aqui la ruta de la imagen por favor'/>
+          </div>
     </>
   )
 }
