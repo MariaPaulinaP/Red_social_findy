@@ -41,6 +41,9 @@
                 border-radius: 5%;
             }
         }
+        .details__iconos__fecha{
+            cursor: pointer;
+        }
 
     }
 
@@ -62,6 +65,7 @@
 
             &__imgPerfil {
                 width: 50px;
+                height: 40px;
                 border-radius: 50%;
                 border: 2px solid #FF74B7;
             }
@@ -111,7 +115,8 @@
             &__img {
                 width: 40px;
                 border-radius: 50%;
-                border: none
+                border: none;
+                height: 40px;
             }
         }
 
@@ -126,6 +131,21 @@
         &__icono {
             position: relative;
             right: 2rem;
+            cursor: pointer;
+        }
+    }
+
+    .contenedor__comentarios{
+        display: flex;
+        flex-direction: column;
+        width: 71%;
+        margin-left: 18%;
+        margin-top: 20px;
+        gap: 5px;
+        .linea__comentarios{
+            background-color: #f9f9f9;
+            padding: 10px 5px;
+            border-radius: 15px;
         }
     }
 
@@ -154,6 +174,7 @@
             top: 5.6rem;
             z-index: 2;
             // margin-left: 0.4rem;
+            cursor: pointer;
         }
 
         &__campana {
@@ -166,6 +187,7 @@
             top: 3rem;
             margin-left: 43.5%;
             height: auto;
+            cursor: pointer;
         }
 
         &__fig__img {

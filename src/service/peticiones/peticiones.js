@@ -2,7 +2,7 @@ import axios from "axios"
 
 const URL_BACK = 'https://red-social-findy-back.onrender.com'
 
-const endpoits = {
+export const endpoits = {
     users : `${URL_BACK}/users`, 
     posts : `${URL_BACK}/posts`, 
     comments : `${URL_BACK}/comments`, 
@@ -27,6 +27,7 @@ export const traerPosts = async () => {
         return []
     }
 }
+
 export const traerComments = async () => {
     try {
         const {data} = await axios.get(endpoits.comments)

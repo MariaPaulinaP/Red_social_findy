@@ -16,7 +16,6 @@ const navigate = useNavigate();
 const traerData = async() =>{
   try {
     const dataPost = await traerPosts()
-    console.log(dataPost)
     setImagenesPost(dataPost)
     return dataPost
   } catch (error) {
@@ -29,6 +28,11 @@ useEffect(() => {
 }, [])
 
 
+  const back  = () => {
+    navigate("/")
+  }
+
+
 const cargarDetalles = (user) => {  
   navigate(`/details/${user.id}`, {state: user})
 }
@@ -38,7 +42,7 @@ const cargarDetalles = (user) => {
   return (
     <>
       <figure className='container__figure'>
-        <img src={atras} alt="principal" className='atras' />
+        <img src={atras} alt="principal" className='atras' onClick={back} />
         <img src={principal} alt="principal" className='principal'/>
         <img src={puntos} alt="puntos" className='puntos'/>
       </figure>

@@ -34,6 +34,8 @@ const navigate = useNavigate();
             url: '',
         })
     }
+
+
   
   };
     
@@ -48,28 +50,28 @@ const navigate = useNavigate();
     onSubmit={handleSubmit(onSubmit)} >
       <div>
         <label>
-          <span>Description</span>
+         Description
+        </label>
           <input 
             name="description"
             type="text"
             placeholder="Description"
             {...register("description", { required: true })}
           />
-        </label>
       </div>
       <div>
         <label >
-          <span >Image</span>
+         Image
+        </label>
           <input
             name="url"
             type="url"
             placeholder="Post"
             {...register("url", { required: true })}
           />
-        </label>
       </div>
-      <button  type="submit">Published</button>
-      <button  onClick={onRequestCloset}> X</button>
+      <button  type="submit" className='btn__publicar' >Published</button>
+      <button  onClick={onRequestCloset} className='btn__salir'> X</button>
 
     </form>
   </div>
