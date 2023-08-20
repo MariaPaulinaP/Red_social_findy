@@ -49,7 +49,7 @@ const Form = () => {
         showConfirmButton: false,
         timer: 1500
       })
-      navigate('/profile');
+      navigate('/home');
       // navigate('profile');
     } else {
       Swal.fire({

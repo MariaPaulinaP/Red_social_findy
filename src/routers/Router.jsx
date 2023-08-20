@@ -7,6 +7,7 @@ import { getSession } from "../service/sessionService/sessionService";
 import Profile from "../components/profile/Profile";
 import FormNewPost from "../components/formNewPost/formNewPost";
 import Details from "../components/details/details";
+import Home2 from "../components/home2/Home2";
 
 export const AppContext = createContext({});
 
@@ -38,10 +39,12 @@ const Router = () => {
         <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<Form/>}/>
+                    <Route path='/home' element={<Home2/>}/>
+                    <Route path='/formNewPost' element={<FormNewPost/>}/>
                     <Route path='/profile' element={<Profile/>}/>
                     <Route path='/details/:id' element={<Details/>}/>
-                    {/* <Route path='/formNewPost' element={<FormNewPost/>}/> */}
-                    {/* <Route path='/profile' element={<Profile/>}/> */}
+                  
+                  
                 </Routes>
         </BrowserRouter>
    </AppContext.Provider>

@@ -35,8 +35,6 @@ const navigate = useNavigate();
         })
     }
 
-
-  
   };
     
 

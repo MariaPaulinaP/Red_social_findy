@@ -10,6 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 const Profile = () => {
 
+  
 const [imagenesPost, setImagenesPost] = useState([])
 const navigate = useNavigate();
 
@@ -41,14 +42,14 @@ const cargarDetalles = (user) => {
 
   return (
     <>
-      <figure className='container__figure'>
+      <figure className='container__figureA'>
         <img src={atras} alt="principal" className='atras' onClick={back} />
         <img src={principal} alt="principal" className='principal'/>
         <img src={puntos} alt="puntos" className='puntos'/>
       </figure>
 
       <section className='container__info'>
-        <img src={circular} alt="" className="circular" />
+        <img src={circular} alt="" className="circularA" />
         <span className='info__followers'>10.7 M <br /> Followers</span>
         <div className='info__personal'>
           <h3>Jennie Kim</h3>

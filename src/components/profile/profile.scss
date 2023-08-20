@@ -5,7 +5,7 @@ body{
 }
 
 @media(max-width: 500px){
-    .container__figure{
+    .container__figureA{
         position: relative;
         width: 100%;
         margin: 0;
@@ -29,13 +29,13 @@ body{
         }
     }
     .container__info{
-        height: 34vh;
+        height: 21vh;
         background: linear-gradient(205deg, #FFC0CB, #FFFFFF, #FFC0CB);
         display: flex;
         justify-content: space-around;
         bottom: 5px;
         position: relative;
-        .circular{
+        .circularA{
             border: 1px solid #e11f4f;
             border-radius: 70%;
             position: absolute;

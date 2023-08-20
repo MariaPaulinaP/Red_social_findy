@@ -82,6 +82,7 @@ function Details() {
       return []
     }
   }
+  
   return (
     <section className="details">
 
