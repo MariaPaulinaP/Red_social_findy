@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Home from './pages/home'
+import Home2 from './components/home2/Home2'
 
 
 
@@ -8,6 +8,6 @@ import Home from './pages/home'
 ReactDOM.createRoot(document.getElementById('root')).render(
 
   <>
-  <Home/>
+  <Home2/>
   </>
 )
