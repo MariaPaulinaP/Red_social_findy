@@ -37,8 +37,6 @@ function Details() {
     } 
 }, [])
 
-
-
   const openModal = () => {
     setModal(true);
   };
@@ -84,7 +82,6 @@ function Details() {
       return []
     }
   }
-  
   return (
     <section className="details">
 
