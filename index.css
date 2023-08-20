@@ -1,0 +1,104 @@
+img{
+    width: 300px;
+    
+    
+    
+
+}
+
+button{
+    background: transparent;
+    border: none;
+}
+
+.post-reaction{
+    display: flex;
+    justify-content: space-between;
+    background: #FF7674;
+    border-top: 1px solid #f8f8f8;
+    border-radius: 8px;
+    padding: 12px;
+
+    
+    .post-reaction-r{}
+}
+
+
+
+.post-reaction-l{
+    
+}
+ul{
+    display: flex;
+    gap: 10px;
+}
+
+.post-like{
+    padding: 0 10px;
+ 
+    
+    
+}
+p{
+    font-size: 14px;
+    font-weight: 400;
+    
+} 
+.post-content{
+    padding: 0 12px;
+    margin: 10px 0;
+    
+}
+.post-content{
+    background: #f8f8f8;
+    
+}
+
+.post-comment{
+    border-top: 1px solid #000 ;
+    
+    padding: 8 12px;
+
+}
+span{
+    font-weight: 600;
+}
+
+.post-comment-wraper{}
+form{
+    display: flex;
+    gap: 10px;
+}
+
+input{
+    background: transparent;
+    border: none;
+    width: 374px;
+}
+
+button{
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.post-img{
+    width: 468px;
+    height: auto;
+    object-fit: cover;
+}
+
+.user-profile{
+    border-radius: 50%;
+}
+
+.user-profile-wraper{
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-img{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
