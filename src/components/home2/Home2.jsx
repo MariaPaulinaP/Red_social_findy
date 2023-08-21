@@ -26,29 +26,20 @@ const Home2 = () => {
   const [imagenesPost, setImagenesPost] = useState([]);
   const [imagenesUsers, setImagenesUsers] = useState([]);
 
-  const traerData = async () => {
-    try {
-      const dataPost = await traerPosts();
-      setImagenesPost(dataPost);
-      return dataPost;
-    } catch (error) {
-      return [];
-    }
-  };
-
-  const traerDataUsers = async () => {
-    try {
-      const dataUsers = await traerUsers();
-      setImagenesUsers(dataUsers);
-      return dataUsers;
-    } catch (error) {
-      return [];
-    }
-  };
 
   useEffect(() => {
-    traerData();
-    traerDataUsers();
+    const fetchData = async () => {
+      try {
+        const dataPost = await traerPosts();
+        const dataUsers = await traerUsers();
+        setImagenesPost(dataPost);
+        setImagenesUsers(dataUsers);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+  
+    fetchData();
   }, []);
 
   const openModal = () => {
@@ -65,7 +56,14 @@ const Home2 = () => {
     navigate("/profile");
   };
 
-  console.log(imagenesUsers);
+  const uniqueUserImages = {};
+    imagenesPost.forEach((post) => {
+      if (!uniqueUserImages[post.userId]) {
+        console.log(uniqueUserImages)
+        uniqueUserImages[post.userId] = post.url;
+        console.log(uniqueUserImages)
+      }
+  });
 
   return (
     <article className="container__padre">
@@ -100,60 +98,49 @@ const Home2 = () => {
         </div>
       </figure>
       
-        {
-            // imagenesPost.map((user,index)=>(
-                imagenesUsers.map((userData, indexData) => (
-                    <section className="container__ventana" key={indexData}>
-                    <div className="ventana__datos">
-                      <img src={userData.avatar} alt="" />
-                      <h3 onClick={handlePerfilClick}>
-                        {userData.name}
-                        {userData.id}
-                        {/* {imagenesPost[indexData].userId } */}
-                      </h3>
-                    </div>
+      {imagenesUsers.map((userData) => {
+      const userImage = uniqueUserImages[userData.id];
 
-                    {(( ) => {
-                        if (imagenesPost[indexData].userId === userData.id) {
-                            return (
-                            <img src={imagenesPost[indexData].url} alt="" className="imagenPrincipal" />
-                            );
-                        } else {
-                            return null;
-                        }
-                        })()}
-
-
-                    
-                    <div className="ventana__iconos">
-                      <div className="iconos">
-                        <img src={corazon} alt="" />
-                        <span>50k</span>
-                      </div>
-                      <div className="iconos">
-                        <img src={enviarPost} alt="" />
-                        <span>50k</span>
-                      </div>
-                      <div className="iconos">
-                        <img src={comentario} alt="" />
-                        <span>50k</span>
-                      </div>
-                      <img src={guardar} alt="" className="iconoGuardar" />
-                    </div>
-                    <div className="ventana__comentario">
-                      <p>
-                        <strong>Lorem ipsum</strong> consectetur adipisicing elit. Quaerat
-                        nemo voluptatem sunt praesentium totam maxime saepe, repellat omnis
-                        cupiditate. Vero sit, deleniti ea expedita voluptas quo, quasi
-                        consequatur consectetur, repudiandae necessitatibus recusandae
-                        nostrum dignissimos repellat maxime sequi error ab beatae.
-                      </p>
-                    </div>
-                  </section>
-                    
-                ))
-            // ))
-        }
+      return (
+        <section className="container__ventana" key={userData.id}>
+       
+            <div className="ventana__datos">
+              <img src={userData.avatar} alt="" />
+              <h3 onClick={handlePerfilClick}>
+                {userData.name}
+              </h3>
+            </div>
+            
+            <img src={userImage} alt="" className="imagenPrincipal" />
+            
+            <div className="ventana__iconos">
+              <div className="iconos">
+                <img src={corazon} alt="" />
+                <span>50k</span>
+              </div>
+              <div className="iconos">
+                <img src={enviarPost} alt="" />
+                <span>50k</span>
+              </div>
+              <div className="iconos">
+                <img src={comentario} alt="" />
+                <span>50k</span>
+              </div>
+              <img src={guardar} alt="" className="iconoGuardar" />
+            </div>
+            <div className="ventana__comentario">
+            <p>
+              <strong>{userData.name}</strong>
+              {imagenesPost.filter((image) => image.id === userData.id)
+                .map((image) => (
+                  <p >{image.description}</p>
+                ))}
+            </p>
+            </div>
+         
+        </section>
+      );
+    })}
         
      
 
