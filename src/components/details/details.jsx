@@ -48,11 +48,11 @@ function Details() {
   const navigate = useNavigate()
 
   const back  = () => {
-    navigate("/profile")
+    navigate(`/home`)
   }
 
   const home  = () => {
-    navigate("/")
+    navigate("/home")
   }
 
   const agregandoComentarios = ({target}) => {
@@ -90,7 +90,10 @@ function Details() {
         <img className="details__barra__img" src={barraCel} alt="Barra" />
       </figure>
       <figure className="details__iconos">
+
         <img className="details__iconos__fecha" src={flechaLeft} alt="Fecha" onClick={back} />
+
+        
         <img className="details__iconos__puntos" src={puntos} alt="Puntos" />
       </figure>
       <figure className="details__foto">
@@ -142,7 +145,6 @@ function Details() {
 
       <div className="footer">
      
-   
         <article className="footer__iconos">
         <img className="footer__casa"  src={casa} alt="casa" onClick={home} />
         <img className="footer__lupa"  src={lupa} alt="lupa"  />

@@ -8,6 +8,7 @@ import Profile from "../components/profile/Profile";
 import FormNewPost from "../components/formNewPost/formNewPost";
 import Details from "../components/details/details";
 import Home2 from "../components/home2/Home2";
+import EditProfile from "../components/editProfile/editProfile";
 
 export const AppContext = createContext({});
 
@@ -41,10 +42,9 @@ const Router = () => {
                     <Route path='/' element={<Form/>}/>
                     <Route path='/home' element={<Home2/>}/>
                     <Route path='/formNewPost' element={<FormNewPost/>}/>
-                    <Route path='/profile' element={<Profile/>}/>
+                    <Route path='/profile/:name' element={<Profile/>}/>
                     <Route path='/details/:id' element={<Details/>}/>
-                  
-                  
+                    <Route path='/editProfile' element={<EditProfile/>}/>
                 </Routes>
         </BrowserRouter>
    </AppContext.Provider>

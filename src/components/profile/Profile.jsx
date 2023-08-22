@@ -1,18 +1,52 @@
 import React, { useEffect, useState } from 'react'
 import './profile.scss'
 import puntos from '../../assests/Group 13.png'
-import circular from '../../assests/Group 12.png'
 import atras from '../../assests/Vector.png'
 import principal from '../../assests/PRINCIPAL.png'
-import { traerPosts } from '../../service/peticiones/peticiones'
-import { useNavigate, useParams } from 'react-router-dom'
+import { endpoits, traerPosts } from '../../service/peticiones/peticiones'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import EditProfile from '../editProfile/editProfile'
+import axios from 'axios'
 
 
 const Profile = () => {
 
+  const [modal, setModal] = useState(false);
+
+    const openModal = () => {
+        setModal(true);
+      localStorage.removeItem("NewPhoto")
+      localStorage.removeItem("NewState")
+      };
+    
+      const closeModal = () => {
+        setModal(false);
+  };
+
   
 const [imagenesPost, setImagenesPost] = useState([])
+const [info, setInfo] = useState({});
+const [fotoPerfil, setfotoPerfil] = useState("");
+const [estado, setEstado] = useState("");
 const navigate = useNavigate();
+const location = useLocation();
+
+//Click para llevar a perfil de cada id
+useEffect(()=> {
+  if(location.state.id) {
+      setInfo(location.state)
+      
+  } 
+}, [])
+
+useEffect(()=> {
+  const NewState = localStorage.getItem("NewState")
+  const NewPhoto = localStorage.getItem("NewPhoto")
+  setfotoPerfil(NewPhoto)
+  setEstado(NewState)
+ 
+}, [])
+
 
 const traerData = async() =>{
   try {
@@ -24,36 +58,56 @@ const traerData = async() =>{
   }
 }
 
+
+const actualizarPerfil = async () => {
+  try {
+    const response = await axios.get(`${endpoits.users}/${info.id}`);
+    const userData = response.data;
+    const updatedData = {
+      ...userData, 
+      avatar: fotoPerfil, 
+      state: estado,
+    };
+    const updateResponse = await axios.put(`${endpoits.users}/${info.id}`, updatedData);
+    console.log("¡Actualización exitosa!");
+    return updateResponse;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+actualizarPerfil()
+
 useEffect(() => {
   traerData()
 }, [])
 
-
   const back  = () => {
-    navigate("/")
+    navigate("/home")
   }
-
 
 const cargarDetalles = (user) => {  
   navigate(`/details/${user.id}`, {state: user})
 }
 
-
-
   return (
     <>
       <figure className='container__figureA'>
+        
         <img src={atras} alt="principal" className='atras' onClick={back} />
-        <img src={principal} alt="principal" className='principal'/>
-        <img src={puntos} alt="puntos" className='puntos'/>
+        <img src={info.front} alt="principal" className='principal'/>
+        <img src={puntos} alt="puntos" className='puntos'onClick={openModal} />
       </figure>
+      
+      <EditProfile isOpen={modal} onRequestCloset={closeModal} />
 
       <section className='container__info'>
-        <img src={circular} alt="" className="circularA" />
+        <img src={info.avatar} alt="" className="circularA" />
         <span className='info__followers'>10.7 M <br /> Followers</span>
         <div className='info__personal'>
-          <h3>Jennie Kim</h3>
-          <span className='info__personal-span'>J. Hello guys <br /> Follow me and like my post</span>
+          <h3>{info.name}</h3>
+          <span className='info__personal-span'><br />{info.state}</span>
         </div>
         <span className='info__likes'>108.3 M <br /> Likes</span>
         <div className='info__botones'> 
@@ -73,13 +127,13 @@ const cargarDetalles = (user) => {
           <div className='fotos'>
             {
                 imagenesPost.map((user, index) => (
-                  <img key={index} src={user.url} className='imagenes' onClick={() => {cargarDetalles(user)}}/> 
+                  info.id === user.userId ? (
+                    <img key={index} src={user.url} className='imagenes' onClick={() => {cargarDetalles(user)}}/> 
+                  ) : null
                 ))
             }
           </div>
         </section>
-
-       
     </>
   )
 }

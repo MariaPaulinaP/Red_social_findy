@@ -52,16 +52,17 @@ const Home2 = () => {
 
   const navigate = useNavigate();
 
-  const handlePerfilClick = () => {
-    navigate("/profile");
+
+  const handlePerfilClick = (userData) => {
+    navigate(`/profile/${userData.username}`, {state: userData});
   };
 
   const uniqueUserImages = {};
     imagenesPost.forEach((post) => {
       if (!uniqueUserImages[post.userId]) {
-        console.log(uniqueUserImages)
+        // console.log(uniqueUserImages)
         uniqueUserImages[post.userId] = post.url;
-        console.log(uniqueUserImages)
+        // console.log(uniqueUserImages)
       }
   });
 
@@ -106,7 +107,7 @@ const Home2 = () => {
        
             <div className="ventana__datos">
               <img src={userData.avatar} alt="" />
-              <h3 onClick={handlePerfilClick}>
+              <h3 onClick={() => {handlePerfilClick(userData)}}>
                 {userData.name}
               </h3>
             </div>
@@ -141,43 +142,7 @@ const Home2 = () => {
         </section>
       );
     })}
-        
-     
-
-      <section className="container__ventana">
-        <div className="ventana__datos">
-          <img src={fotoRedonda} alt="" />
-          <h3 onClick={handlePerfilClick}>Jennie kim</h3>
-        </div>
-
-        <img src={imgenCentral} alt="" className="imagenPrincipal" />
-
-        <div className="ventana__iconos">
-          <div className="iconos">
-            <img src={corazon} alt="" />
-            <span>50k</span>
-          </div>
-          <div className="iconos">
-            <img src={enviarPost} alt="" />
-            <span>50k</span>
-          </div>
-          <div className="iconos">
-            <img src={comentario} alt="" />
-            <span>50k</span>
-          </div>
-          <img src={guardar} alt="" className="iconoGuardar" />
-        </div>
-
-        <div className="ventana__comentario">
-          <p>
-            <strong>Lorem ipsum</strong> consectetur adipisicing elit. Quaerat
-            nemo voluptatem sunt praesentium totam maxime saepe, repellat omnis
-            cupiditate. Vero sit, deleniti ea expedita voluptas quo, quasi
-            consequatur consectetur, repudiandae necessitatibus recusandae
-            nostrum dignissimos repellat maxime sequi error ab beatae.
-          </p>
-        </div>
-      </section>
+      
 
       <div className="footerA">
         <article className="footerA__iconosA">
