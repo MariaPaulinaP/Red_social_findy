@@ -27,6 +27,7 @@ const Home2 = () => {
   const [imagenesUsers, setImagenesUsers] = useState([]);
   const [idUsuario, setIdUsuario] = useState({});
   const [likes, setLikes] = useState([])
+  const [estadoNuevo, setEstadoNuevo] = useState(0);
 
 
   const loginEmail = localStorage.getItem("userEmail")
@@ -91,11 +92,12 @@ useEffect(() => {
   });
  
   // estadoNuevo = estadoNuevo.push(estadoNuevo = estadoNuevo +1)
-  let estadoNuevo = 0; 
+  // let estadoNuevo = 0; 
   
-  const handleLikes = async (idPost, estadoNuevo) => {
-    estadoNuevo = estadoNuevo +3 ; 
-    await actualizarLikes(idPost, estadoNuevo)
+  const handleLikes = async (idPost) => {
+    const nuevoEstado = estadoNuevo + 1;
+    setEstadoNuevo(nuevoEstado);
+    await actualizarLikes(idPost, nuevoEstado)
     
   }
 
@@ -142,9 +144,9 @@ useEffect(() => {
     
             <div className="ventana__datos">
               <img src={userData.avatar} alt="" />
-              <h3>
+              <h3 onClick={() => {handlePerfilClick(userData)}}>
                 {userData.name}
-              </h3> 
+              </h3>
             </div>
             
             <img src={userImage} alt="" className="imagenPrincipal" />
