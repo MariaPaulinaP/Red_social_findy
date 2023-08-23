@@ -26,8 +26,8 @@ const Profile = () => {
   
 const [imagenesPost, setImagenesPost] = useState([])
 const [info, setInfo] = useState({});
-const [fotoPerfil, setfotoPerfil] = useState("");
-const [estado, setEstado] = useState("");
+// const [fotoPerfil, setfotoPerfil] = useState("");
+// const [estado, setEstado] = useState("");
 const navigate = useNavigate();
 const location = useLocation();
 
@@ -39,13 +39,13 @@ useEffect(()=> {
   } 
 }, [])
 
-useEffect(()=> {
-  const NewState = localStorage.getItem("NewState")
-  const NewPhoto = localStorage.getItem("NewPhoto")
-  setfotoPerfil(NewPhoto)
-  setEstado(NewState)
+// useEffect(()=> {
+//   const NewState = localStorage.getItem("NewState")
+//   const NewPhoto = localStorage.getItem("NewPhoto")
+//   setfotoPerfil(NewPhoto)
+//   setEstado(NewState)
  
-}, [])
+// }, [])
 
 
 const traerData = async() =>{
@@ -59,29 +59,29 @@ const traerData = async() =>{
 }
 
 
-const actualizarPerfil = async () => {
-  try {
-    const response = await axios.get(`${endpoits.users}/${info.id}`);
-    const userData = response.data;
-    const updatedData = {
-      ...userData, 
-      avatar: fotoPerfil, 
-      state: estado,
-    };
-    const updateResponse = await axios.put(`${endpoits.users}/${info.id}`, updatedData);
-    console.log("¡Actualización exitosa!");
-    return updateResponse;
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
+// const actualizarPerfil = async () => {
+//   try {
+//     const response = await axios.get(`${endpoits.users}/${info.id}`);
+//     const userData = response.data;
+//     const updatedData = {
+//       ...userData, 
+//       avatar: fotoPerfil, 
+//       state: estado,
+//     };
+//     const updateResponse = await axios.put(`${endpoits.users}/${info.id}`, updatedData);
+//     console.log("¡Actualización exitosa!");
+//     return updateResponse;
+//   } catch (error) {
+//     console.log(error);
+//     return [];
+//   }
+// };
 
-actualizarPerfil()
+
 
 useEffect(() => {
-  traerData()
-}, [])
+  traerData();
+}, []);
 
   const back  = () => {
     navigate("/home")
@@ -100,7 +100,7 @@ const cargarDetalles = (user) => {
         <img src={puntos} alt="puntos" className='puntos'onClick={openModal} />
       </figure>
       
-      <EditProfile isOpen={modal} onRequestCloset={closeModal} />
+      <EditProfile isOpen={modal} onRequestCloset={closeModal} info={info}/>
 
       <section className='container__info'>
         <img src={info.avatar} alt="" className="circularA" />

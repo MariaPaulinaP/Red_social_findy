@@ -19,12 +19,34 @@ import mas from "../../assests/mas.png";
 
 import FormNewPost from "../formNewPost/formNewPost";
 import { useNavigate } from "react-router-dom";
-import { traerPosts, traerUsers } from "../../service/peticiones/peticiones";
+import { actualizarLikes, traerPosts, traerUsers } from "../../service/peticiones/peticiones";
 
 const Home2 = () => {
   const [modal, setModal] = useState(false);
   const [imagenesPost, setImagenesPost] = useState([]);
   const [imagenesUsers, setImagenesUsers] = useState([]);
+  const [idUsuario, setIdUsuario] = useState({});
+  const [likes, setLikes] = useState([])
+
+
+  const loginEmail = localStorage.getItem("userEmail")
+let idUsuarioLogin = 0
+imagenesUsers.forEach((dato, index) => {
+  if (loginEmail === dato.email) {
+    // console.log("Correo encontrado en el índice:", index);
+    idUsuarioLogin = index 
+  }
+ 
+});
+
+const actualizarUsuario = (id) => {
+  const usuario = imagenesUsers[id];
+  setIdUsuario(usuario);
+};
+
+useEffect(() => {
+  actualizarUsuario(idUsuarioLogin)
+}, [actualizarUsuario]);
 
 
   useEffect(() => {
@@ -41,6 +63,7 @@ const Home2 = () => {
   
     fetchData();
   }, []);
+ 
 
   const openModal = () => {
     setModal(true);
@@ -58,14 +81,26 @@ const Home2 = () => {
   };
 
   const uniqueUserImages = {};
+  const uniqueUserId = {};
+  
     imagenesPost.forEach((post) => {
       if (!uniqueUserImages[post.userId]) {
-        // console.log(uniqueUserImages)
         uniqueUserImages[post.userId] = post.url;
-        // console.log(uniqueUserImages)
+        uniqueUserId[post.userId] = post.id;
       }
   });
+ 
+  // estadoNuevo = estadoNuevo.push(estadoNuevo = estadoNuevo +1)
+  let estadoNuevo = 0; 
+  
+  const handleLikes = async (idPost, estadoNuevo) => {
+    estadoNuevo = estadoNuevo +3 ; 
+    await actualizarLikes(idPost, estadoNuevo)
+    
+  }
 
+
+  
   return (
     <article className="container__padre">
       <figure className="container__figure">
@@ -104,19 +139,21 @@ const Home2 = () => {
 
       return (
         <section className="container__ventana" key={userData.id}>
-       
+    
             <div className="ventana__datos">
               <img src={userData.avatar} alt="" />
-              <h3 onClick={() => {handlePerfilClick(userData)}}>
+              <h3>
                 {userData.name}
-              </h3>
+              </h3> 
             </div>
             
             <img src={userImage} alt="" className="imagenPrincipal" />
             
             <div className="ventana__iconos">
               <div className="iconos">
-                <img src={corazon} alt="" />
+                
+                {/* AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII */}
+                <img src={corazon} alt="" onClick={() => {handleLikes(uniqueUserId[userData.id], estadoNuevo)}}/>
                 <span>50k</span>
               </div>
               <div className="iconos">

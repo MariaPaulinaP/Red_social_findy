@@ -42,6 +42,7 @@ const Form = () => {
       saveSession(validarUsuario);
       setAdmim(true);
       localStorage.setItem("userData", JSON.stringify(data));
+      localStorage.setItem("userEmail",data.email);
       Swal.fire({
         position: 'top-end',
         icon: 'success',
