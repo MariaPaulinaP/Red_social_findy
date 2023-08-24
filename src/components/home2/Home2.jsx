@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./home2.scss";
 import logo from "../../assests/logo.png";
 import chats from "../../assests/chats.png";
@@ -20,17 +20,17 @@ import mas from "../../assests/mas.png";
 import FormNewPost from "../formNewPost/formNewPost";
 import { useNavigate } from "react-router-dom";
 import { actualizarLikes, traerPosts, traerUsers } from "../../service/peticiones/peticiones";
+import { AppContext } from "../../routers/Router";
 
 const Home2 = () => {
   const [modal, setModal] = useState(false);
-  const [imagenesPost, setImagenesPost] = useState([]);
   const [imagenesUsers, setImagenesUsers] = useState([]);
+  const {imagenesPost, setImagenesPost} = useContext(AppContext)
   const [idUsuario, setIdUsuario] = useState({});
-  const [likes, setLikes] = useState([])
   const [estadoNuevo, setEstadoNuevo] = useState(0);
-
-
-  const loginEmail = localStorage.getItem("userEmail")
+  const {likes, setLikes} = useContext(AppContext)
+  
+const loginEmail = localStorage.getItem("userEmail")
 let idUsuarioLogin = 0
 imagenesUsers.forEach((dato, index) => {
   if (loginEmail === dato.email) {
@@ -39,7 +39,6 @@ imagenesUsers.forEach((dato, index) => {
   }
  
 });
-
 const actualizarUsuario = (id) => {
   const usuario = imagenesUsers[id];
   setIdUsuario(usuario);
@@ -83,26 +82,25 @@ useEffect(() => {
 
   const uniqueUserImages = {};
   const uniqueUserId = {};
+  const uniqueUserLikes = {}
   
     imagenesPost.forEach((post) => {
       if (!uniqueUserImages[post.userId]) {
         uniqueUserImages[post.userId] = post.url;
         uniqueUserId[post.userId] = post.id;
+        uniqueUserLikes[post.userId] = post.likes;
       }
   });
- 
-  // estadoNuevo = estadoNuevo.push(estadoNuevo = estadoNuevo +1)
-  // let estadoNuevo = 0; 
+
   
   const handleLikes = async (idPost) => {
-    const nuevoEstado = estadoNuevo + 1;
-    setEstadoNuevo(nuevoEstado);
+    // const nuevoEstado = estadoNuevo + 1;
+    // setEstadoNuevo(nuevoEstado);
+    const nuevoEstado = likes[idPost] ? likes[idPost] + 1 : 1;
+    setLikes({ ...likes, [idPost]: nuevoEstado });
     await actualizarLikes(idPost, nuevoEstado)
     
   }
-
-
-  
   return (
     <article className="container__padre">
       <figure className="container__figure">
@@ -138,13 +136,16 @@ useEffect(() => {
       
       {imagenesUsers.map((userData) => {
       const userImage = uniqueUserImages[userData.id];
+      const userLikes =  uniqueUserLikes[userData.id];
+      // console.log(userLikes)
+
 
       return (
         <section className="container__ventana" key={userData.id}>
     
             <div className="ventana__datos">
               <img src={userData.avatar} alt="" />
-              <h3 onClick={() => {handlePerfilClick(userData)}}>
+              <h3 onClick={() => {handlePerfilClick(userData, uniqueUserId)}}>
                 {userData.name}
               </h3>
             </div>
@@ -156,7 +157,8 @@ useEffect(() => {
                 
                 {/* AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII */}
                 <img src={corazon} alt="" onClick={() => {handleLikes(uniqueUserId[userData.id], estadoNuevo)}}/>
-                <span>50k</span>
+                {/* <span>{userLikes}</span> */}
+                <span>{likes[uniqueUserId[userData.id]] || 0}</span>
               </div>
               <div className="iconos">
                 <img src={enviarPost} alt="" />

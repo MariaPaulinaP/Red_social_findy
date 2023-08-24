@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './profile.scss'
 import puntos from '../../assests/Group 13.png'
 import atras from '../../assests/Vector.png'
@@ -7,10 +7,11 @@ import { endpoits, traerPosts } from '../../service/peticiones/peticiones'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import EditProfile from '../editProfile/editProfile'
 import axios from 'axios'
+import { AppContext } from '../../routers/Router'
 
 
 const Profile = () => {
-
+  const {likes, setLikes} = useContext(AppContext)
   const [modal, setModal] = useState(false);
 
     const openModal = () => {
@@ -35,17 +36,8 @@ const location = useLocation();
 useEffect(()=> {
   if(location.state.id) {
       setInfo(location.state)
-      
   } 
 }, [])
-
-// useEffect(()=> {
-//   const NewState = localStorage.getItem("NewState")
-//   const NewPhoto = localStorage.getItem("NewPhoto")
-//   setfotoPerfil(NewPhoto)
-//   setEstado(NewState)
- 
-// }, [])
 
 
 const traerData = async() =>{
@@ -57,26 +49,6 @@ const traerData = async() =>{
     return []
   }
 }
-
-
-// const actualizarPerfil = async () => {
-//   try {
-//     const response = await axios.get(`${endpoits.users}/${info.id}`);
-//     const userData = response.data;
-//     const updatedData = {
-//       ...userData, 
-//       avatar: fotoPerfil, 
-//       state: estado,
-//     };
-//     const updateResponse = await axios.put(`${endpoits.users}/${info.id}`, updatedData);
-//     console.log("¡Actualización exitosa!");
-//     return updateResponse;
-//   } catch (error) {
-//     console.log(error);
-//     return [];
-//   }
-// };
-
 
 
 useEffect(() => {
@@ -109,7 +81,7 @@ const cargarDetalles = (user) => {
           <h3>{info.name}</h3>
           <span className='info__personal-span'><br />{info.state}</span>
         </div>
-        <span className='info__likes'>108.3 M <br /> Likes</span>
+        <span className='info__likes'> 524 K <br /> Likes</span>
         <div className='info__botones'> 
           <button className='info__btn'>Follow</button>
           <button className='info__btn'>Messages</button>

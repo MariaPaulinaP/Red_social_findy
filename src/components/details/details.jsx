@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./details.scss";
 
 import barraCel from "../details//assestsDetails/barraBlanca.png";
@@ -17,19 +17,25 @@ import campana from "../../assests/campana.png";
 import mas from "../../assests/mas.png";
 import FormNewPost from "../formNewPost/formNewPost";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { endpoits } from "../../service/peticiones/peticiones";
+import { endpoits, traerUsers } from "../../service/peticiones/peticiones";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { AppContext } from "../../routers/Router";
 
 
 function Details() {
   const [modal, setModal] = useState(false);
   const [info, setInfo] = useState({});
   const location = useLocation();
- 
   const [comentarios, setcomentarios] = useState("")
   const [datos, setDatos] = useState([])
+  const [usuarios, setUsuarios] = useState([])
+  const {likes, setLikes} = useContext(AppContext)
+  const {imagenesPost, setImagenesPost} = useContext(AppContext)
+  
 
+  const { id } = useParams()
+  console.log(id);
   useEffect(()=> {
     if(location.state.id) {
         setInfo(location.state)
@@ -54,6 +60,23 @@ function Details() {
   const home  = () => {
     navigate("/home")
   }
+
+  useEffect(() => {
+    traerUsers1()
+  }, [])
+  
+
+  const traerUsers1 = async () => {
+    try {
+        const dataUsuarios = await traerUsers()
+        setUsuarios(dataUsuarios)
+        return dataUsuarios
+      } catch (error) {
+        return []
+      }
+  }
+    
+   
 
   const agregandoComentarios = ({target}) => {
     const valor = target.value;
@@ -82,7 +105,24 @@ function Details() {
       return []
     }
   }
+
+
   
+  // const uniqueUserImages = {};
+  // const uniqueUserId = {};
+  // const uniqueUserLikes = {}
+  
+  //   imagenesPost.forEach((post) => {
+  //     if (!uniqueUserImages[post.userId]) {
+  //       uniqueUserId[post.userId] = post.id;
+  //       uniqueUserLikes[post.userId] = post.likes;
+  //     }
+  // });
+  
+  console.log(imagenesPost[id-1])
+
+ 
+
   return (
     <section className="details">
 
@@ -111,7 +151,17 @@ function Details() {
         <span className="datos__span">Jennie Kim</span>
         <article className="datos__article">
           <img  className="datos__article__img" src={corazon} alt="" />
-          <span>108K</span>
+
+          {/* aquiiiiiiiiiiiiii */}
+          {
+            imagenesPost.map((element, index)=>(
+              <span key={index}>{element.likes}</span>
+
+            ))
+          } 
+         
+          {/* <span>{postPerfil}</span> */}
+          
         </article>
         <article className="datos__article">
           <img className="datos__article__img" src={comentario} alt="" />

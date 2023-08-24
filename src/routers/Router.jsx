@@ -13,7 +13,10 @@ import EditProfile from "../components/editProfile/editProfile";
 export const AppContext = createContext({});
 
 const Router = () => {
+    const [likes, setLikes] = useState({})
     const [nameUser, setNameUser] = useState([]);
+    const [imagenesPost, setImagenesPost] = useState([]);
+    
   useEffect(() => {
     const user = getSession();
     if (user?.name) {
@@ -33,8 +36,13 @@ const Router = () => {
         userLogin,
         userDispatch,
         },
+        likes, 
+        setLikes, 
+        imagenesPost, 
+        setImagenesPost
     };
 
+  
   return (
     <AppContext.Provider value={globalState}>
         <BrowserRouter>
