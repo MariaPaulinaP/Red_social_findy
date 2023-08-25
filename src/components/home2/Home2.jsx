@@ -16,38 +16,43 @@ import casa from "../../assests/casa.png";
 import lupa from "../../assests/lupa.png";
 import campana from "../../assests/campana.png";
 import mas from "../../assests/mas.png";
+// import guardar from '../../assests/ig.png';
 
 import FormNewPost from "../formNewPost/formNewPost";
 import { useNavigate } from "react-router-dom";
 import { actualizarLikes, endpoits, traerPosts, traerUsers } from "../../service/peticiones/peticiones";
 import { AppContext } from "../../routers/Router";
+import { log } from "react-modal/lib/helpers/ariaAppHider";
 
 const Home2 = () => {
   const [modal, setModal] = useState(false);
   const [imagenesUsers, setImagenesUsers] = useState([]);
-  const {imagenesPost, setImagenesPost} = useContext(AppContext)
+  const { imagenesPost, setImagenesPost } = useContext(AppContext)
   const [idUsuario, setIdUsuario] = useState({});
   const [estadoNuevo, setEstadoNuevo] = useState(0);
-  const {likes, setLikes} = useContext(AppContext)
-  const {comentario, setComentario} = useContext(AppContext)
-  
-const loginEmail = localStorage.getItem("userEmail")
-let idUsuarioLogin = 0
-imagenesUsers.forEach((dato, index) => {
-  if (loginEmail === dato.email) {
-    // console.log("Correo encontrado en el índice:", index);
-    idUsuarioLogin = index 
-  }
- 
-});
-const actualizarUsuario = (id) => {
-  const usuario = imagenesUsers[id];
-  setIdUsuario(usuario);
-};
 
-useEffect(() => {
-  actualizarUsuario(idUsuarioLogin)
-}, [actualizarUsuario]);
+  const { likes, setLikes } = useContext(AppContext)
+  const { comentario, setComentario } = useContext(AppContext)
+  const { tag, setTag } = useContext(AppContext)
+  const [liked, setLiked] = useState(false)
+
+  const loginEmail = localStorage.getItem("userEmail")
+  let idUsuarioLogin = 0
+  imagenesUsers.forEach((dato, index) => {
+    if (loginEmail === dato.email) {
+      // console.log("Correo encontrado en el índice:", index);
+      idUsuarioLogin = index
+    }
+
+  });
+  const actualizarUsuario = (id) => {
+    const usuario = imagenesUsers[id];
+    setIdUsuario(usuario);
+  };
+
+  useEffect(() => {
+    actualizarUsuario(idUsuarioLogin)
+  }, [actualizarUsuario]);
 
 
 
@@ -64,10 +69,10 @@ useEffect(() => {
         console.error("Error fetching data:", error);
       }
     };
-  
+
     fetchData();
   }, []);
- 
+
 
   const openModal = () => {
     setModal(true);
@@ -81,46 +86,57 @@ useEffect(() => {
 
 
   const handlePerfilClick = (userData) => {
-    navigate(`/profile/${userData.username}`, {state: userData});
+    navigate(`/profile/${userData.username}`, { state: userData });
   };
 
   const uniqueUserImages = {};
   const uniqueUserId = {};
   const uniqueUserLikes = {}
-  
-    imagenesPost.forEach((post) => {
-      if (!uniqueUserImages[post.userId]) {
-        uniqueUserImages[post.userId] = post.url;
-        uniqueUserId[post.userId] = post.id;
-        uniqueUserLikes[post.userId] = post.likes;
-      }
+
+  imagenesPost.forEach((post) => {
+    if (!uniqueUserImages[post.userId]) {
+      uniqueUserImages[post.userId] = post.url;
+      uniqueUserId[post.userId] = post.id;
+      uniqueUserLikes[post.userId] = post.likes;
+    }
   });
 
-  
+  const guardarPost = (e) => {
+    console.log("funciona");
+    console.log(e, "posicion");
+    setTag(e)
+    console.log(tag, "Esto es tag");
+
+
+  }
+
+  const handleClickLikes = () => {
+    setLiked(!liked);
+  };
+
+  const handleDoubleClickLikes = (e) => {
+    e.preventDefault();
+    setLiked(false);
+  };
+
   const handleLikes = async (idPost) => {
     // const nuevoEstado = estadoNuevo + 1;
     // setEstadoNuevo(nuevoEstado);
     const nuevoEstado = likes[idPost] ? likes[idPost] + 1 : 1;
     setLikes({ ...likes, [idPost]: nuevoEstado });
     await actualizarLikes(idPost, nuevoEstado)
-  
-  //   const postId = 1;
-  //   const traerDatosApi = async(postId) => {
-  //     try {
-  //       const {data} = await axios.get(`${endpoits.posts}/${postId}/comments`)
-  //       const numeroComentarios = data.length;
-  //       console.log(data)
-  //       setComentario(numeroComentarios)
-  //       return data
-        
-  //     } catch (error) {
-  //       return []
-  //     }
-  //   }
-  //   console.log(comentario)
-  // useEffect(()=>{
-  //   traerDatosApi(postId)
-  // },[])
+
+
+
+    const getStyle = () => {
+      const stateButton = document.querySelectorAll(".content__button__id")
+      stateButton.forEach((item) => {
+        item.classList.add("noActiveButton")
+      })
+      target.classList.remove("noActiveButton")
+      target.classList.add("activeButton")
+    }
+
 
   }
   return (
@@ -134,38 +150,45 @@ useEffect(() => {
       </figure>
 
       <figure className="container__estados">
-          {imagenesUsers.map(person => (
-        <div className="container__circulares"  key={person.id}>
-          <img src={person.avatar} alt="Estado +" className="estados__circular"/>
-          <span>{person.name}</span>
-        </div>
+        {imagenesUsers.map(person => (
+          <div className="container__circulares" key={person.id}>
+            <img src={person.avatar} alt="Estado +" className="estados__circular" />
+            <span>{person.name}</span>
+          </div>
 
-          ))}
+        ))}
       </figure>
-      
+
       {imagenesUsers.map((userData) => {
-      const userImage = uniqueUserImages[userData.id];
-      const userLikes =  uniqueUserLikes[userData.id];
+        const userImage = uniqueUserImages[userData.id];
+        const userLikes = uniqueUserLikes[userData.id];
 
 
-      return (
-        <section className="container__ventana" key={userData.id}>
-    
+        return (
+          <section className="container__ventana" key={userData.id}>
+
             <div className="ventana__datos">
               <img src={userData.avatar} alt="" />
-              <h3 onClick={() => {handlePerfilClick(userData, uniqueUserId)}}>
+              <h3 onClick={() => { handlePerfilClick(userData, uniqueUserId) }}>
                 {userData.name}
               </h3>
             </div>
-            
+
             <img src={userImage} alt="" className="imagenPrincipal" />
-            
+
             <div className="ventana__iconos">
               <div className="iconos">
-                
+
+
                 {/* AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII */}
-                <img src={corazon} alt="" onClick={() => {handleLikes(uniqueUserId[userData.id], estadoNuevo)}}/>
-                {/* <span>{userLikes}</span> */}
+                <img src={corazon} alt=""className={`fa ${liked ? 'active' : ''}`}
+                 onClick={() => {handleLikes(uniqueUserId[userData.id], estadoNuevo); 
+                  {handleClickLikes}} } 
+                  onDoubleClick={handleDoubleClickLikes}
+                  />
+                 
+               
+
                 <span>{likes[uniqueUserId[userData.id]] || 0}</span>
               </div>
               <div className="iconos">
@@ -175,25 +198,27 @@ useEffect(() => {
               <div className="iconos">
                 <img src={comentarioIcono} alt="" />
 
-               <span>{comentario}</span>
-                
+                <span>{comentario}</span>
+
               </div>
-              <img src={guardar} alt="" className="iconoGuardar" />
+              <img src={guardar} alt="" className="iconoGuardar" onClick={() => { guardarPost(uniqueUserId[userData.id], estadoNuevo) }} />
             </div>
             <div className="ventana__comentario">
-            <p>
-              <strong>{userData.name}</strong>
-              {imagenesPost.filter((image) => image.id === userData.id)
-                .map((image) => (
-                  <p >{image.description}</p>
-                ))}
-            </p>
+              <p>
+                <strong>{userData.name}</strong>
+                {imagenesPost.filter((image) => image.id === userData.id)
+                  .map((image) => (
+                    <p >{image.description}</p>
+
+                  ))}
+              </p>
+
             </div>
-         
-        </section>
-      );
-    })}
-      
+
+          </section>
+        );
+      })}
+
 
       <div className="footerA">
         <article className="footerA__iconosA">

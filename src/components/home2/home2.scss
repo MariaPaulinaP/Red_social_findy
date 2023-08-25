@@ -1,4 +1,23 @@
 @media(max-width: 500px){
+
+    // .material-symbols-outlined{
+    //     color: red;
+    //     fill: red; 
+    // }
+
+    .fa{
+        font-size: 48px;
+        height: 39px;
+        cursor: pointer;
+    
+        background-color: rgb(255, 255, 255)
+      }
+      
+    .fa.active{
+        color: rgb(227, 171, 171);
+        background-color: pink;
+    }
+
     body{
         background: linear-gradient(to bottom, #fdeded, hsl(0, 56%, 62%));
     }
@@ -80,6 +99,9 @@
                 object-fit: cover;
             }
             .ventana__iconos{
+                // img:hover{
+                //     background-color: red;
+                // }
                 margin-left: 15px;
                 display: flex;
                 gap: 20px;
@@ -95,26 +117,25 @@
                     cursor: pointer;
                 }
                 .iconoGuardar{
-                    margin-left: 55%;
+                    margin-left: 50%;
                 }
             }
             .ventana__comentario{
                 margin-left: 15px;
                 margin: 20px 15px;
                 text-align: justify;
-            
+                
             }
         }
         
     }
     .footerA{
-        margin-top: -1rem;
+        margin-bottom: -0.3rem;
         position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
-        // bottom: 10%;
-        // top: 75%;
+     
      
 
         &__iconosA {

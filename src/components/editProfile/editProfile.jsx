@@ -15,6 +15,7 @@ function EditProfile({ isOpen, onRequestCloset, info }) {
   } = useForm();
 
   const idInfo = info.id
+  console.log(idInfo)
 
   useEffect(()=> {
     const NewState = localStorage.getItem("NewState")
@@ -42,6 +43,7 @@ function EditProfile({ isOpen, onRequestCloset, info }) {
   }
 
   const actualizarPerfil = async () => {
+
     try {
       const response = await axios.get(`${endpoits.users}/${idInfo}`);
       const userData = response.data;

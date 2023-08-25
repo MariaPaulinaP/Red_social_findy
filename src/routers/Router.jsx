@@ -13,10 +13,11 @@ import EditProfile from "../components/editProfile/editProfile";
 export const AppContext = createContext({});
 
 const Router = () => {
-    const [likes, setLikes] = useState({})
+    const [likes, setLikes] = useState(0)
     const [nameUser, setNameUser] = useState([]);
     const [imagenesPost, setImagenesPost] = useState([]);
     const [comentario, setComentario] = useState(0)
+    const [tag, setTag] = useState(0);
     
   useEffect(() => {
     const user = getSession();
@@ -42,7 +43,9 @@ const Router = () => {
         imagenesPost, 
         setImagenesPost, 
         comentario, 
-        setComentario
+        setComentario,
+        tag,
+        setTag
     };
 
   

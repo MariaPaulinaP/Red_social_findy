@@ -34,7 +34,7 @@ const navigate = useNavigate();
     
     if (response) {
        console.log("registrado")
-       navigate('/')
+       navigate('/home')
     }else {
       console.log('error')
         reset({
