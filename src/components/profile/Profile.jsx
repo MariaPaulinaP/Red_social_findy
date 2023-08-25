@@ -13,6 +13,8 @@ import { AppContext } from '../../routers/Router'
 const Profile = () => {
   const {likes, setLikes} = useContext(AppContext)
   const [modal, setModal] = useState(false);
+  const [displayStyle, setDisplayStyle] = useState('none');
+  const [displayStyle1, setDisplayStyle1] = useState('flex');
 
     const openModal = () => {
         setModal(true);
@@ -27,12 +29,10 @@ const Profile = () => {
   
 const [imagenesPost, setImagenesPost] = useState([])
 const [info, setInfo] = useState({});
-// const [fotoPerfil, setfotoPerfil] = useState("");
-// const [estado, setEstado] = useState("");
+
 const navigate = useNavigate();
 const location = useLocation();
 
-//Click para llevar a perfil de cada id
 useEffect(()=> {
   if(location.state.id) {
       setInfo(location.state)
@@ -63,6 +63,20 @@ const cargarDetalles = (user) => {
   navigate(`/details/${user.id}`, {state: user})
 }
 
+const irVideos = () => {
+  setDisplayStyle('flex');
+  setTimeout(() => {
+    setDisplayStyle1('none');
+  }, 0);
+};
+
+const irFotos = () => {
+  setDisplayStyle1('flex');
+  setTimeout(() => {
+    setDisplayStyle('none');
+  }, 0);
+};
+
   return (
     <>
       <figure className='container__figureA'>
@@ -91,16 +105,26 @@ const cargarDetalles = (user) => {
 
         <section className="container__fotos">
           <div className='categorias'>
-            <span>Fotos</span>
-            <span>Videos</span>
+            <span onClick={irFotos}>Fotos</span>
+            <span onClick={irVideos}>Videos</span>
             <span>Album</span>
             <span>Tag</span>
           </div>
-          <div className='fotos'>
+
+          <div className='fotos' style={{ display: displayStyle1 }}>
             {
                 imagenesPost.map((user, index) => (
                   info.id === user.userId ? (
                     <img key={index} src={user.url} className='imagenes' onClick={() => {cargarDetalles(user)}}/> 
+                  ) : null
+                ))
+            }
+          </div>
+          <div className='videos' style={{ display: displayStyle }} onClick={irVideos}>
+            {
+                imagenesPost.map((user, index) => (
+                  info.id === user.userId ? (
+                    <img key={index} src={user.videos} className='imagenes' onClick={() => {cargarDetalles(user)}}/> 
                   ) : null
                 ))
             }
