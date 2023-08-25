@@ -70,6 +70,19 @@ export const actualizarLikes = async (id, estadoNuevo) => {
     }
   };  
 
+export const actualizarComentarios = async (id) => {
+    try {
+      const response = await axios.get(`${endpoits.posts}/${id}`);
+      const userData = response.data;
+      return userData
+    }
+      
+    catch (error) {
+      console.log(error);
+      return [];
+    }
+  };
+
 
 
 

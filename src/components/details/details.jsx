@@ -6,7 +6,7 @@ import flechaLeft from "../details/assestsDetails/flechaLeftBlanca.png";
 import fotoPersona from "../details/assestsDetails/fotoMujer.jpg";
 import puntos from "../../assests/puntos.png";
 import corazon from "../../assests/corazon.png";
-import comentario from "../../assests/comentario.png";
+import comentarioIcono from "../../assests/comentario.png";
 import enviarPost from "../../assests/enviarPost.png";
 import enviarRigth from "../../assests/enviarRigth.png";
 import footer from '../details/assestsDetails/footer.png'; 
@@ -17,7 +17,7 @@ import campana from "../../assests/campana.png";
 import mas from "../../assests/mas.png";
 import FormNewPost from "../formNewPost/formNewPost";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { endpoits, traerUsers } from "../../service/peticiones/peticiones";
+import { actualizarComentarios, endpoits, traerUsers } from "../../service/peticiones/peticiones";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { AppContext } from "../../routers/Router";
@@ -32,14 +32,16 @@ function Details() {
   const [usuarios, setUsuarios] = useState([])
   const {likes, setLikes} = useContext(AppContext)
   const {imagenesPost, setImagenesPost} = useContext(AppContext)
+  const [comentario, setComentario] = useState({})
   
 
   const { id } = useParams()
-  console.log(id);
+
   useEffect(()=> {
     if(location.state.id) {
         setInfo(location.state)
         traerDatosApi(location.state.id)
+
     } 
 }, [])
 
@@ -108,18 +110,30 @@ function Details() {
 
 
   
-  // const uniqueUserImages = {};
-  // const uniqueUserId = {};
-  // const uniqueUserLikes = {}
+  // console.log(imagenesPost[id-1])
+
+  const idPost = id; 
   
-  //   imagenesPost.forEach((post) => {
-  //     if (!uniqueUserImages[post.userId]) {
-  //       uniqueUserId[post.userId] = post.id;
-  //       uniqueUserLikes[post.userId] = post.likes;
-  //     }
-  // });
-  
-  console.log(imagenesPost[id-1])
+  const traerComentarios = async (idPost) => {
+    
+    try {
+        const dataUsuarios = await actualizarComentarios(idPost)
+        console.log(dataUsuarios.comments)
+        setComentario(dataUsuarios.comments)
+        return dataUsuarios
+      } catch (error) {
+        return []
+      }
+  }
+  console.log(comentario)
+
+  useEffect(()=>{
+    traerComentarios(idPost)
+  },[])
+    
+
+
+
 
  
 
@@ -164,8 +178,8 @@ function Details() {
           
         </article>
         <article className="datos__article">
-          <img className="datos__article__img" src={comentario} alt="" />
-          <span>108K</span>
+          <img className="datos__article__img" src={comentarioIcono } alt="" />
+          <span></span>
         </article>
         <article className="datos__article">
           <img className="datos__article__img" src={enviarPost} alt="" />
