@@ -141,7 +141,11 @@
         width: 71%;
         margin-left: 18%;
         margin-top: 20px;
-        gap: 5px;
+        gap: 20px;  
+        .iguales{
+            display: flex;
+            gap: 15px;
+        }
         .linea__comentarios{
             background-color: #f9f9f9;
             padding: 10px 5px;

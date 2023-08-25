@@ -100,6 +100,7 @@ useEffect(() => {
     setLikes({ ...likes, [idPost]: nuevoEstado });
     await actualizarLikes(idPost, nuevoEstado)
     
+
   }
   return (
     <article className="container__padre">
@@ -112,32 +113,18 @@ useEffect(() => {
       </figure>
 
       <figure className="container__estados">
-        <div className="container__circulares">
-          <img src={fotoRedonda} alt="Estado +" className="estados__circular" />
-          <span>nombre 1</span>
+          {imagenesUsers.map(person => (
+        <div className="container__circulares"  key={person.id}>
+          <img src={person.avatar} alt="Estado +" className="estados__circular"/>
+          <span>{person.name}</span>
         </div>
-        <div className="container__circulares">
-          <img src={fotoRedonda} alt="Estado +" className="estados__circular" />
-          <span>nombre 2</span>
-        </div>
-        <div className="container__circulares">
-          <img src={fotoRedonda} alt="Estado +" className="estados__circular" />
-          <span>nombre 3</span>
-        </div>
-        <div className="container__circulares">
-          <img src={fotoRedonda} alt="Estado +" className="estados__circular" />
-          <span>nombre 4</span>
-        </div>
-        <div className="container__circulares">
-          <img src={fotoRedonda} alt="Estado +" className="estados__circular" />
-          <span>nombre 5</span>
-        </div>
+
+          ))}
       </figure>
       
       {imagenesUsers.map((userData) => {
       const userImage = uniqueUserImages[userData.id];
       const userLikes =  uniqueUserLikes[userData.id];
-      // console.log(userLikes)
 
 
       return (

@@ -45,6 +45,8 @@ function Details() {
     } 
 }, [])
 
+const numeroUsuario  = info.userId ;
+
   const openModal = () => {
     setModal(true);
   };
@@ -77,9 +79,7 @@ function Details() {
         return []
       }
   }
-    
-   
-
+ 
   const agregandoComentarios = ({target}) => {
     const valor = target.value;
     setcomentarios(valor)
@@ -89,7 +89,7 @@ function Details() {
     try {
       const response = await axios.post(`${endpoits.posts}/${info.id}/comments`, {text: comentarios})
       Swal.fire('Comentario enviado exitosamente')
-      navigate("/profile")
+      navigate("/home")
       return response
       
     } catch (error) {
@@ -162,15 +162,27 @@ function Details() {
             alt="Foto"
           />
         </figure>
-        <span className="datos__span">Jennie Kim</span>
+        {
+          usuarios.map((user, index) =>
+            user.id === numeroUsuario ? (
+              <span className="datos__span" key={index}>
+                {user.name}
+              </span>
+            ) : null
+          )
+        }
+        
         <article className="datos__article">
           <img  className="datos__article__img" src={corazon} alt="" />
 
           {/* aquiiiiiiiiiiiiii */}
           {
             imagenesPost.map((element, index)=>(
-              <span key={index}>{element.likes}</span>
-
+              element.id == id ?(
+                <span key={index}>
+                  {element.likes}
+                </span>
+              ): null
             ))
           } 
          
@@ -193,7 +205,13 @@ function Details() {
 
       <div className="input">
         <figure className="input__fig">
-            <img className="input__fig__img" src={info.url} alt="" />
+        {
+          usuarios.map((user) =>
+            user.id === numeroUsuario ? (
+              <img className="input__fig__img" src={user.avatar} alt="" key={user.id}/>
+            ) : null
+          )
+        }
         </figure>
 
         <input className="input__escribir" type="text" placeholder="Write comment as username...."  onChange={agregandoComentarios}/>
@@ -202,7 +220,11 @@ function Details() {
 
       <div className="contenedor__comentarios">
         {datos && datos.map((comment, index) => (
+         <div className="iguales">
+            <img className="input__fig__img" src={info.url} alt="" key=''/>
             <div key={index} className="linea__comentarios">{comment.text}</div>
+         </div>
+          
           ))
         }
       </div>

@@ -114,6 +114,22 @@ body{
                 cursor: pointer;
             }
         }
+        .videos{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            display: none;
+            .imagenes{
+                width: 45%;
+                border-radius: 12px;
+            }
+            .imagenes:hover{
+                opacity: 80%;
+                cursor: pointer;
+            }
+        }
 
 
     }
