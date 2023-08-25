@@ -32,7 +32,7 @@ function Details() {
   const [usuarios, setUsuarios] = useState([])
   const {likes, setLikes} = useContext(AppContext)
   const {imagenesPost, setImagenesPost} = useContext(AppContext)
-  const [comentario, setComentario] = useState({})
+  const {comentario, setComentario} = useContext(AppContext)
   
 
   const { id } = useParams()
@@ -101,6 +101,8 @@ const numeroUsuario  = info.userId ;
     try {
       const {data} = await axios.get(`${endpoits.posts}/${postId}/comments`)
       setDatos(data)
+      const numeroComentarios = data.length;
+      setComentario(numeroComentarios)
       return data
       
     } catch (error) {
@@ -109,8 +111,6 @@ const numeroUsuario  = info.userId ;
   }
 
 
-  
-  // console.log(imagenesPost[id-1])
 
   const idPost = id; 
   
@@ -118,14 +118,13 @@ const numeroUsuario  = info.userId ;
     
     try {
         const dataUsuarios = await actualizarComentarios(idPost)
-        console.log(dataUsuarios.comments)
-        setComentario(dataUsuarios.comments)
+        // console.log(dataUsuarios.comments)
+        // setComentario(dataUsuarios)
         return dataUsuarios
       } catch (error) {
         return []
       }
   }
-  console.log(comentario)
 
   useEffect(()=>{
     traerComentarios(idPost)
@@ -191,7 +190,7 @@ const numeroUsuario  = info.userId ;
         </article>
         <article className="datos__article">
           <img className="datos__article__img" src={comentarioIcono } alt="" />
-          <span></span>
+          <span>{comentario}</span>
         </article>
         <article className="datos__article">
           <img className="datos__article__img" src={enviarPost} alt="" />

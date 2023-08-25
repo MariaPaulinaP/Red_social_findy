@@ -6,7 +6,7 @@ import corazon from "../../assests/corazon.png";
 import imgenCentral from "../../assests/JENNIE.png";
 import fotoRedonda from "../../assests/fotoRedonda.png";
 import enviarPost from "../../assests/enviarPost.png";
-import comentario from "../../assests/comentario.png";
+import comentarioIcono from "../../assests/comentario.png";
 import guardar from "../../assests/guardarPost.png";
 
 import footer from "../details/assestsDetails/footer.png";
@@ -19,7 +19,7 @@ import mas from "../../assests/mas.png";
 
 import FormNewPost from "../formNewPost/formNewPost";
 import { useNavigate } from "react-router-dom";
-import { actualizarLikes, traerPosts, traerUsers } from "../../service/peticiones/peticiones";
+import { actualizarLikes, endpoits, traerPosts, traerUsers } from "../../service/peticiones/peticiones";
 import { AppContext } from "../../routers/Router";
 
 const Home2 = () => {
@@ -29,6 +29,7 @@ const Home2 = () => {
   const [idUsuario, setIdUsuario] = useState({});
   const [estadoNuevo, setEstadoNuevo] = useState(0);
   const {likes, setLikes} = useContext(AppContext)
+  const {comentario, setComentario} = useContext(AppContext)
   
 const loginEmail = localStorage.getItem("userEmail")
 let idUsuarioLogin = 0
@@ -47,6 +48,9 @@ const actualizarUsuario = (id) => {
 useEffect(() => {
   actualizarUsuario(idUsuarioLogin)
 }, [actualizarUsuario]);
+
+
+
 
 
   useEffect(() => {
@@ -99,7 +103,24 @@ useEffect(() => {
     const nuevoEstado = likes[idPost] ? likes[idPost] + 1 : 1;
     setLikes({ ...likes, [idPost]: nuevoEstado });
     await actualizarLikes(idPost, nuevoEstado)
-    
+  
+  //   const postId = 1;
+  //   const traerDatosApi = async(postId) => {
+  //     try {
+  //       const {data} = await axios.get(`${endpoits.posts}/${postId}/comments`)
+  //       const numeroComentarios = data.length;
+  //       console.log(data)
+  //       setComentario(numeroComentarios)
+  //       return data
+        
+  //     } catch (error) {
+  //       return []
+  //     }
+  //   }
+  //   console.log(comentario)
+  // useEffect(()=>{
+  //   traerDatosApi(postId)
+  // },[])
 
   }
   return (
@@ -149,11 +170,13 @@ useEffect(() => {
               </div>
               <div className="iconos">
                 <img src={enviarPost} alt="" />
-                <span>50k</span>
+                <span>6</span>
               </div>
               <div className="iconos">
-                <img src={comentario} alt="" />
-                <span>50k</span>
+                <img src={comentarioIcono} alt="" />
+
+               <span>{comentario}</span>
+                
               </div>
               <img src={guardar} alt="" className="iconoGuardar" />
             </div>

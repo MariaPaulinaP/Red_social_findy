@@ -67,6 +67,7 @@ const irVideos = () => {
   setDisplayStyle('flex');
   setTimeout(() => {
     setDisplayStyle1('none');
+    
   }, 0);
 };
 
@@ -74,6 +75,7 @@ const irFotos = () => {
   setDisplayStyle1('flex');
   setTimeout(() => {
     setDisplayStyle('none');
+    
   }, 0);
 };
 
@@ -111,7 +113,7 @@ const irFotos = () => {
             <span>Tag</span>
           </div>
 
-          <div className='fotos' style={{ display: displayStyle1 }}>
+          <div className='fotos' style={{ display: displayStyle1 }} >
             {
                 imagenesPost.map((user, index) => (
                   info.id === user.userId ? (
@@ -124,7 +126,7 @@ const irFotos = () => {
             {
                 imagenesPost.map((user, index) => (
                   info.id === user.userId ? (
-                    <img key={index} src={user.videos} className='imagenes' onClick={() => {cargarDetalles(user)}}/> 
+                    <img key={index} src={user.video} className='imagenes' onClick={() => {cargarDetalles(user)}}/> 
                   ) : null
                 ))
             }

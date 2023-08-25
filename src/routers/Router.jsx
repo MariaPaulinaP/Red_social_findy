@@ -16,6 +16,7 @@ const Router = () => {
     const [likes, setLikes] = useState({})
     const [nameUser, setNameUser] = useState([]);
     const [imagenesPost, setImagenesPost] = useState([]);
+    const [comentario, setComentario] = useState(0)
     
   useEffect(() => {
     const user = getSession();
@@ -39,7 +40,9 @@ const Router = () => {
         likes, 
         setLikes, 
         imagenesPost, 
-        setImagenesPost
+        setImagenesPost, 
+        comentario, 
+        setComentario
     };
 
   

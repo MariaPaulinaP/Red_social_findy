@@ -18,9 +18,17 @@ function FormNewPost({ isOpen, onRequestCloset }) {
   
 const navigate = useNavigate();
 
+
   const onSubmit = async(data) => {
     console.log(data)
-    const response = await savePost(data)
+    console.log(data.description)
+    const nuevoPost = {
+      userId : 1, 
+      url: data.url, 
+      description: data.description
+    }
+    
+    const response = await savePost(nuevoPost)
 
     console.log(response);
     
@@ -66,6 +74,7 @@ const navigate = useNavigate();
             type="url"
             placeholder="Post"
             {...register("url", { required: true })}
+            
           />
       </div>
       <button  type="submit" className='btn__publicar' >Published</button>
